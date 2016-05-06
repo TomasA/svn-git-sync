@@ -1,9 +1,9 @@
 # svn-git-sync
 
 This system can synchronize the svn repository with the git repository on the server
-in both directions. There are hooks in the svn which synchronize the new commit
-from svn to git and hooks in the git that synchonize commits from the git to the
-svn when develop branch is pushed.
+in both directions. Hooks in the svn synchronize the new commit from svn to git
+and hooks in the git synchonize commits from the git to the svn when develop branch
+is pushed.
 
 This system can only synchronize svn trunk with the git develop branch. The svn
 repository and the git repository have to be on the same server. It is not absolutely
@@ -11,8 +11,8 @@ safe but it is mostly safe when used the right way.
 
 This system is made for the time when you want to slowly switch from the svn to git
 but not all users are ready or persuaded to use the git. It is designed to teach
-the users the [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-without the realease and bugfix branches.
+users the [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+without realease and bugfix branches. It worked in my case.
 
 ## Instatalation
 
@@ -46,7 +46,7 @@ Now your git will push its commits to svn when the develop branch will be pushed
 The pushed commits will be always modified, so pull the develop after your push!
 Keep your git repository on the server on the master branch!
 
-Now change the 5th row in _svnserver/hooks/post-commit_ and _svnserver/hooks/post-commit_.
+Now change the 5th row in _svnserver/hooks/pre-commit_ and _svnserver/hooks/post-commit_.
 In `cd $(dirname "$0")/../../gitserver` to contain the absolute path to your git
 repository or relative path from the hooks folder (just like in example). And now
 copy the content of _svnserver_ to your svn server.
@@ -77,7 +77,7 @@ commit message.
   3. Checkout the develop branch and merge (fast forward) the feature branch onto it.
 (If you want to add less commits to svn, squash them before merge.)
   4. Pull the develop. If it has been changed, you have to reset your local develop
-branch and to the common commit of develop and feature branch and repeat whole step
+branch to the common commit of develop and feature branch and repeat whole step
 4 again (this is why you have to do it quickly).
   5. Push the develop branch.
   6. Pull the develop branch! The last commit have to have the **git-svn-id** in the
@@ -89,11 +89,11 @@ commit message.
 1. Turn the svn and git repository off so no one can commit and push to them.
 2. Create bare git repository somewhere.
 3. Create remote to the new repository in the old one.
-4. Push all branches to the new repository.
+4. Push all branches frrom old repository to the new one.
 5. Let users to change their remote to the new address.
 6. Archive the svn and remove the old git repository (or don't, it's up to you).
 7. Teach users about the rest of the 
 [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
-They already know they shouldn't use master and commit in the develop. And they
-know how to make the feature. Teach them about release and hotfix. This
+They already know they shouldn't use master and commit in the develop and they
+know how to make the feature. Teach them about release and hotfix, this
 [Git Flow Diagram](http://danielkummer.github.io/git-flow-cheatsheet/) may help.
