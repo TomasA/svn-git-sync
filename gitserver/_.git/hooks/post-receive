@@ -1,0 +1,24 @@
+#!/bin/sh
+
+while read oldrev newrev refname
+do
+    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+    if [ "develop" = "$branch" ]
+	then
+        WDIR="${PWD}"
+		cd $(dirname "$0")/../..
+		
+		while [ -f .sync ]
+		do
+			echo "Already synchronizing"
+			sleep 1s
+		done
+		
+		./self2svn.sh &
+		disown
+		
+		cd "$WDIR"
+    fi
+done
+
+exit 0

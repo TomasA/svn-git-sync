@@ -1,0 +1,18 @@
+#!/bin/sh
+
+WDIR="${PWD}"
+
+cd $(dirname "$0")/../../gitserver
+
+while [ -f .sync ]
+do
+	if [ -f .syncd ]
+	then
+		exit 0
+	fi
+	echo "Already synchronizing"
+	sleep 1s
+done
+
+cd "$WDIR"
+exit 0

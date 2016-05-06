@@ -1,0 +1,8 @@
+#!/bin/sh
+
+WDIR="${PWD}"
+
+cd $(dirname "$0")/../../gitserver
+
+./svn2self.sh
+cd "$WDIR"
