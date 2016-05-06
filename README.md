@@ -17,7 +17,13 @@ without realease and bugfix branches. It worked in my case.
 ## Instatalation
 
 Pull this repository and rename the `gitserver/_.git` folder to `gitserver/.git`
-and `gitserver/_.gitignore` file to `gitserver/.gitignore`.
+and `gitserver/_.gitignore` file to `gitserver/.gitignore`. And make `self2svn.sh`
+and `svn2self.sh` executable.
+
+```
+chmod +x gitserver/self2svn.sh
+chmod +x gitserver/svn2self.sh
+```  
 
 Go to the folder where you want to have the git repository and run next commands
 to initialize the connection from git to svn. Instead of `file://../svn/trunk`
